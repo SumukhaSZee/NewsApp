@@ -1,4 +1,4 @@
-package com.example.newsapp.UI
+package com.example.newsapp.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

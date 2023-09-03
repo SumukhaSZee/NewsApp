@@ -11,16 +11,15 @@ import com.example.newsapp.Adapters.NewsAdapter
 import com.example.newsapp.DataBase.ArticleDatabase
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
-import com.example.newsapp.UI.NewsActivity
-import com.example.newsapp.UI.NewsViewModel
-import com.example.newsapp.UI.NewsViewModelProviderFactory
+import com.example.newsapp.ViewModel.NewsViewModel
+import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.Util.Resource
 import com.example.newsapp.databinding.ArticlePreviewBinding
 import com.example.newsapp.databinding.BrNewsBinding
 
 class BreakingNewsFragment :Fragment(R.layout.br_news) {
 
-    lateinit var viewModel:NewsViewModel
+    lateinit var viewModel: NewsViewModel
     var newsAdapter = NewsAdapter()
     lateinit var binding: ArticlePreviewBinding
     lateinit var brNewsBinding: BrNewsBinding

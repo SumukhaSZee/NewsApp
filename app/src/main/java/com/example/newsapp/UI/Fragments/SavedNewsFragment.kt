@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.DataBase.ArticleDatabase
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
-import com.example.newsapp.UI.NewsActivity
-import com.example.newsapp.UI.NewsViewModel
-import com.example.newsapp.UI.NewsViewModelProviderFactory
+import com.example.newsapp.ViewModel.NewsViewModel
+import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 
 class SavedNewsFragment :Fragment(R.layout.saved_news){
 
-    lateinit var viewModel:NewsViewModel
+    lateinit var viewModel: NewsViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val newsRepository= NewsRepository(ArticleDatabase.createDatabase(requireContext()))

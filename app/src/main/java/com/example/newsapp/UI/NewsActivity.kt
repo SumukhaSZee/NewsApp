@@ -3,15 +3,13 @@ package com.example.newsapp.UI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.DataBase.ArticleDatabase
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
+import com.example.newsapp.ViewModel.NewsViewModel
+import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

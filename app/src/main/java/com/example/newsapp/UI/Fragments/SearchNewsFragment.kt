@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,13 +12,10 @@ import com.example.newsapp.Adapters.NewsAdapter
 import com.example.newsapp.DataBase.ArticleDatabase
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
-import com.example.newsapp.UI.NewsActivity
-import com.example.newsapp.UI.NewsViewModel
-import com.example.newsapp.UI.NewsViewModelProviderFactory
+import com.example.newsapp.ViewModel.NewsViewModel
+import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.Util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.Util.Resource
-import com.example.newsapp.databinding.ArticlePreviewBinding
-import com.example.newsapp.databinding.BrNewsBinding
 import com.example.newsapp.databinding.SearchResultsBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -28,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class SearchNewsFragment :Fragment(R.layout.search_results) {
 
-    lateinit var viewModel:NewsViewModel
+    lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter:NewsAdapter
     lateinit var searchNewsBinding: SearchResultsBinding
 
