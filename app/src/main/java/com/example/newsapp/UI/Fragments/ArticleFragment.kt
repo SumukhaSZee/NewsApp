@@ -3,16 +3,22 @@ package com.example.newsapp.UI.Fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.DataBase.ArticleDatabase
 import com.example.newsapp.R
+import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.UI.NewsActivity
 import com.example.newsapp.UI.NewsViewModel
+import com.example.newsapp.UI.NewsViewModelProviderFactory
 
 class ArticleFragment :Fragment(R.layout.article) {
 
     lateinit var viewModel:NewsViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as NewsActivity).viewModel
+        val newsRepository= NewsRepository(ArticleDatabase.createDatabase(requireContext()))
+        val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
+        viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
     }
 
 }
