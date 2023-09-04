@@ -30,7 +30,7 @@ class NewsViewModel(
     }
 
     fun getDataforfirstFragment(){
-        GlobalScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = RetrofitInstance.api.getBreakingNews("us",breakingNewsPage)
             Log.d("APIResponse1",result?.body()?.articles.toString())
 
