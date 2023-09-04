@@ -9,9 +9,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.Adapters.NewsAdapter
-import com.example.newsapp.DataBase.ArticleDatabase
+/*import com.example.newsapp.DataBase.ArticleDatabase*/
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
@@ -51,12 +52,22 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
 
 
 
-        val newsRepository= NewsRepository(ArticleDatabase.createDatabase(requireContext()))
+        val newsRepository= NewsRepository(/*ArticleDatabase.createDatabase(requireContext())*/)
         val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
         viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
 
 
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article",it)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment2_to_articleFragment2,
+                bundle
+            )
+        }
 
         var job : Job? = null
         searchNewsBinding.etSearch.addTextChangedListener {editable->

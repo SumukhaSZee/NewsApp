@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.Adapters.NewsAdapter
-import com.example.newsapp.DataBase.ArticleDatabase
+/*import com.example.newsapp.DataBase.ArticleDatabase*/
 import com.example.newsapp.Models.Article
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
@@ -43,11 +44,21 @@ class BreakingNewsFragment :Fragment(R.layout.br_news) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val newsRepository = NewsRepository(ArticleDatabase.createDatabase(requireContext()))
+        val newsRepository = NewsRepository(/*ArticleDatabase.createDatabase(requireContext())*/)
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article",it)
+            }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment2_to_articleFragment2,
+                bundle
+            )
+        }
 
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {response->
             when(response){

@@ -1,3 +1,4 @@
+package com.example.newsapp.DataBase/*
 package com.example.newsapp.DataBase
 
 import androidx.lifecycle.LiveData
@@ -21,4 +22,4 @@ interface ArticleDao {
     suspend fun deleteArticle(article: Article)
 
 
-}
+}*/

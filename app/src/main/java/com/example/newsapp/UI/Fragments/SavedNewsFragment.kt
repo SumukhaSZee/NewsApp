@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsapp.DataBase.ArticleDatabase
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.Adapters.NewsAdapter
+/*import com.example.newsapp.DataBase.ArticleDatabase*/
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
@@ -18,6 +21,7 @@ class SavedNewsFragment :Fragment(R.layout.saved_news){
 
     lateinit var viewModel: NewsViewModel
     lateinit var savedNewsBinding: SavedNewsBinding
+    lateinit var newsAdapter : NewsAdapter
 
 
     override fun onCreateView(
@@ -31,8 +35,29 @@ class SavedNewsFragment :Fragment(R.layout.saved_news){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val newsRepository= NewsRepository(ArticleDatabase.createDatabase(requireContext()))
+        val newsRepository= NewsRepository(/*ArticleDatabase.createDatabase(requireContext())*/)
         val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
         viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
+
+        setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article",it)
+            }
+            findNavController().navigate(
+                R.id.action_savedNewsFragment2_to_articleFragment2,
+                bundle
+            )
+        }
+
+
+    }
+    private fun setupRecyclerView(){
+        newsAdapter = NewsAdapter()
+        savedNewsBinding.rvSavedNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,true)
+        }
     }
 }

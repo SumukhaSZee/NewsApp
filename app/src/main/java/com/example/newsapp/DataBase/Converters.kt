@@ -1,3 +1,4 @@
+package com.example.newsapp.DataBase/*
 package com.example.newsapp.DataBase
 
 import androidx.room.TypeConverter
@@ -14,4 +15,4 @@ class Converters {
     fun toSource(name:String) : Source{
         return Source(name,name)
     }
-}
+}*/

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.newsapp.DataBase.ArticleDatabase
+/*import com.example.newsapp.DataBase.ArticleDatabase*/
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
@@ -31,7 +31,7 @@ class NewsActivity : AppCompatActivity() {
 
 
 
-        val newsRepository = NewsRepository(ArticleDatabase(this))
+        val newsRepository = NewsRepository(/*ArticleDatabase(this)*/)
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
 
