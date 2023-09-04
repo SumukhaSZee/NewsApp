@@ -17,7 +17,7 @@ import com.example.newsapp.databinding.ArticlePreviewBinding
 
 
 
-class NewsAdapter(private val mlist:List<Article>) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+/*class NewsAdapter(private val mlist:List<Article>) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
 
     var TAG = "NewsAdapter"
@@ -66,11 +66,11 @@ class NewsAdapter(private val mlist:List<Article>) : RecyclerView.Adapter<NewsAd
 
 
 
-}
+}*/
 
 
 
-/*class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
 
 
@@ -88,12 +88,12 @@ class NewsAdapter(private val mlist:List<Article>) : RecyclerView.Adapter<NewsAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
 
- *//*return ArticleViewHolder(
+ /*return ArticleViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.article_preview,
                 parent,
                 false)
-        )*//*
+        )*/
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_preview,parent,false)
         return ArticleViewHolder(view)
@@ -137,4 +137,4 @@ class NewsAdapter(private val mlist:List<Article>) : RecyclerView.Adapter<NewsAd
     fun setOnItemClickListener(listener:(Article)->Unit){
         onItemClickListener = listener
     }
-}*/
+}

@@ -18,7 +18,7 @@ class NewsViewModel(
     val newsrepository : NewsRepository
 ): ViewModel() {
 
-    val breakingNews : MutableLiveData<List<Article>> = MutableLiveData()
+    val breakingNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     val breakingNewsPage = 1
 
 
@@ -26,10 +26,10 @@ class NewsViewModel(
     val searchNewsPage = 1
 
     init{
-        getDataforfirstFragment()
+        getBreakingNews("us")
     }
 
-    fun getDataforfirstFragment(){
+    /*fun getDataforfirstFragment(){
         viewModelScope.launch(Dispatchers.IO) {
             val result = RetrofitInstance.api.getBreakingNews("us",breakingNewsPage)
             Log.d("APIResponse1",result?.body()?.articles.toString())
@@ -39,13 +39,13 @@ class NewsViewModel(
 
             breakingNews.postValue(Articles?.articles)
         }
-    }
+    }*/
 
-    /*fun getBreakingNews(countryCode:String) = viewModelScope.launch {
+    fun getBreakingNews(countryCode:String) = viewModelScope.launch {
         breakingNews.postValue(Resource.Loading())
         val response = newsrepository.getBreakingNews(countryCode,breakingNewsPage)
         breakingNews.postValue(handleBreakingNewsResponse(response))
-    }*/
+    }
 
     fun searchNews(searchQuery:String) = viewModelScope.launch{
         searchNews.postValue(Resource.Loading())

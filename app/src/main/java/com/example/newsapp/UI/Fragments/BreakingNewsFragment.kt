@@ -19,6 +19,7 @@ import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.Util.Resource
 import com.example.newsapp.databinding.ArticlePreviewBinding
 import com.example.newsapp.databinding.BrNewsBinding
+import retrofit2.Response
 
 class BreakingNewsFragment :Fragment(R.layout.br_news) {
 
@@ -33,21 +34,64 @@ class BreakingNewsFragment :Fragment(R.layout.br_news) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        brNewsBinding = BrNewsBinding.inflate(inflater,container,false)   // for fragments
+        brNewsBinding = BrNewsBinding.inflate(inflater, container, false)   // for fragments
         val view = brNewsBinding.root
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         val newsRepository = NewsRepository(ArticleDatabase.createDatabase(requireContext()))
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
+        setupRecyclerView()
 
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
+        viewModel.breakingNews.observe(viewLifecycleOwner, Observer {response->
+            when(response){
+                is Resource.Success->{
+                    hideprogressbar()
+                    response.data?.let{newsResponse ->
+                         newsAdapter.differ.submitList(newsResponse.articles)
+
+                    }
+                }
+                is Resource.Error->{
+                    hideprogressbar()
+                    response.message?.let{message->
+                        Log.d(TAG,"An Error Occured ${message}")
+
+                    }
+                }
+                is Resource.Loading->{
+                    showprogressbar()
+                }
+            }
+
+        })
+
+
+
+    }
+
+    private fun hideprogressbar() {
+         brNewsBinding.paginationProgressBar.visibility = View.INVISIBLE
+    }
+    private fun showprogressbar() {
+         brNewsBinding.paginationProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun setupRecyclerView(){
+            newsAdapter = NewsAdapter()
+            brNewsBinding.rvBreakingNews.apply {
+                adapter = newsAdapter
+                layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,true)
+            }
+        }
+}
+       /* viewModel.breakingNews.observe(viewLifecycleOwner, Observer {
             prepareRecyclerView(it)
         })
 
@@ -71,7 +115,7 @@ class BreakingNewsFragment :Fragment(R.layout.br_news) {
     }
 
 
-    }
+    }*/
 
 
 

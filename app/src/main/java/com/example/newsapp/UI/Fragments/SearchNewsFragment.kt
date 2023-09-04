@@ -55,7 +55,8 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
         val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
         viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
 
-        /*setupRecyclerView()*/
+
+        setupRecyclerView()
 
         var job : Job? = null
         searchNewsBinding.etSearch.addTextChangedListener {editable->
@@ -71,12 +72,13 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
             }
         }
 
+
         viewModel.searchNews.observe(viewLifecycleOwner,  Observer {response->
             when(response){
                 is Resource.Success ->{
                     hideProgressBar()
                     response.data?.let{newsResponse ->
-                        //newsAdapter.differ.submitList(newsResponse.articles)
+                        newsAdapter.differ.submitList(newsResponse.articles)
 
                     }
                 }
@@ -103,16 +105,11 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
         searchNewsBinding.paginationProgressBar.visibility = View.VISIBLE
     }
 
-   /* private fun setupRecyclerView(){
-        *//*newsAdapter = NewsAdapter()
-        brNewsBinding.apply {
-            rvBreakingNews.apply {
+   private fun setupRecyclerView(){
+        newsAdapter = NewsAdapter()
+        searchNewsBinding.rvSearchNews.apply{
                 adapter = newsAdapter
-                layoutManager = LinearLayoutManager(activity)
-            }*//*
-
-        searchNewsBinding.rvSearchNews.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,true)
-        val recycleAdapter = NewsAdapter()
-        searchNewsBinding.rvSearchNews.adapter = recycleAdapter
-    }*/
+                layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,true)
+            }
+    }
 }
