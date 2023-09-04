@@ -50,7 +50,7 @@ class BreakingNewsFragment :Fragment(R.layout.br_news) {
 
         setupRecyclerView()
 
-        newsAdapter.setOnItemClickListener {
+        /*newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article",it)
             }
@@ -58,6 +58,18 @@ class BreakingNewsFragment :Fragment(R.layout.br_news) {
                 R.id.action_breakingNewsFragment2_to_articleFragment2,
                 bundle
             )
+        }*/
+
+        newsAdapter.setOnItemClickListener { it ->
+            it?.let { article ->
+                val bundle = Bundle().apply {
+                    putSerializable("article", article)
+                }
+                findNavController().navigate(
+                    R.id.action_breakingNewsFragment2_to_articleFragment2,
+                    bundle
+                )
+            }
         }
 
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {response->

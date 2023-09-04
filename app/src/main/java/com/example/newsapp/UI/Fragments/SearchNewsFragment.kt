@@ -59,7 +59,7 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
 
         setupRecyclerView()
 
-        newsAdapter.setOnItemClickListener {
+        /*newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article",it)
             }
@@ -67,6 +67,18 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
                 R.id.action_searchNewsFragment2_to_articleFragment2,
                 bundle
             )
+        }*/
+
+        newsAdapter.setOnItemClickListener { it ->
+            it?.let { article ->
+                val bundle = Bundle().apply {
+                    putSerializable("article", article)
+                }
+                findNavController().navigate(
+                    R.id.action_searchNewsFragment2_to_articleFragment2,
+                    bundle
+                )
+            }
         }
 
         var job : Job? = null

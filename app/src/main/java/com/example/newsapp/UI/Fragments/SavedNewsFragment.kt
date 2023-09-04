@@ -41,7 +41,7 @@ class SavedNewsFragment :Fragment(R.layout.saved_news){
 
         setupRecyclerView()
 
-        newsAdapter.setOnItemClickListener {
+       /* newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article",it)
             }
@@ -49,6 +49,17 @@ class SavedNewsFragment :Fragment(R.layout.saved_news){
                 R.id.action_savedNewsFragment2_to_articleFragment2,
                 bundle
             )
+        }*/
+        newsAdapter.setOnItemClickListener { it ->
+            it?.let { article ->
+                val bundle = Bundle().apply {
+                    putSerializable("article", article)
+                }
+                findNavController().navigate(
+                    R.id.action_savedNewsFragment2_to_articleFragment2,
+                    bundle
+                )
+            }
         }
 
 
