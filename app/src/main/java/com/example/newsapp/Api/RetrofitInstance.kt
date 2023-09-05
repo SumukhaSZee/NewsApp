@@ -1,8 +1,6 @@
 package com.example.newsapp.Api
 
-import com.example.newsapp.Util.Constants.Companion.BASE_URL
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import com.example.newsapp.Util.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

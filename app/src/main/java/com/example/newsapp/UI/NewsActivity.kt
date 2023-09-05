@@ -5,18 +5,16 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-/*import com.example.newsapp.DataBase.ArticleDatabase*/
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
 import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class NewsActivity : AppCompatActivity() {
 
-    lateinit var viewModel: NewsViewModel
+      lateinit var  viewModel: NewsViewModel
 
 
 
@@ -31,7 +29,7 @@ class NewsActivity : AppCompatActivity() {
 
 
 
-        val newsRepository = NewsRepository(/*ArticleDatabase(this)*/)
+       val newsRepository = NewsRepository()
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this,viewModelProviderFactory).get(NewsViewModel::class.java)
 

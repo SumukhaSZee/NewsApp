@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -12,21 +13,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.Adapters.NewsAdapter
-/*import com.example.newsapp.DataBase.ArticleDatabase*/
+import com.example.newsapp.Adapters.OnItemClickListener
+import com.example.newsapp.Models.Article
 import com.example.newsapp.R
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
-import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
-import com.example.newsapp.Util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
+import com.example.newsapp.Util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.Util.Resource
-import com.example.newsapp.databinding.BrNewsBinding
+import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.databinding.SearchResultsBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SearchNewsFragment :Fragment(R.layout.search_results) {
+class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter:NewsAdapter
@@ -40,36 +41,18 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        searchNewsBinding = SearchResultsBinding.inflate(inflater,container,false)   // for fragments
+        searchNewsBinding = SearchResultsBinding.inflate(inflater,container,false)
+        searchNewsBinding.lifecycleOwner = viewLifecycleOwner // for fragments
         val view = searchNewsBinding.root
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-
         super.onViewCreated(view, savedInstanceState)
-
-
-
-        val newsRepository= NewsRepository(/*ArticleDatabase.createDatabase(requireContext())*/)
-        val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
-        viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
-
-
+        val newsRepository = NewsRepository()
+        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
         setupRecyclerView()
-
-        /*newsAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("article",it)
-            }
-            findNavController().navigate(
-                R.id.action_searchNewsFragment2_to_articleFragment2,
-                bundle
-            )
-        }*/
-
-        newsAdapter.setOnItemClickListener { it ->
+        /*newsAdapter.setOnItemClickListener { it ->
             it?.let { article ->
                 val bundle = Bundle().apply {
                     putSerializable("article", article)
@@ -79,7 +62,7 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
                     bundle
                 )
             }
-        }
+        }*/
 
         var job : Job? = null
         searchNewsBinding.etSearch.addTextChangedListener {editable->
@@ -101,7 +84,8 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
                 is Resource.Success ->{
                     hideProgressBar()
                     response.data?.let{newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles)
+                        val filteredArticles = newsResponse.articles.filterNotNull()
+                        newsAdapter.differ.submitList(filteredArticles)
 
                     }
                 }
@@ -129,10 +113,28 @@ class SearchNewsFragment :Fragment(R.layout.search_results) {
     }
 
    private fun setupRecyclerView(){
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter(this)
         searchNewsBinding.rvSearchNews.apply{
                 adapter = newsAdapter
                 layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,true)
             }
+    }
+
+    override fun onItemClick(article: Article) {
+        // Ensure that the 'article' object is not null before using it
+        if (article != null) {
+            val bundle = Bundle().apply {
+                putSerializable("article", article)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment2_to_articleFragment2,
+                bundle
+            )
+        } else {
+            // Handle the case where 'article' is null (optional)
+            // You can log an error message or take appropriate action here
+            Log.d(TAG,"Error in receiving article")
+            Toast.makeText(context, "Article is null", Toast.LENGTH_SHORT).show()
+        }
     }
 }
