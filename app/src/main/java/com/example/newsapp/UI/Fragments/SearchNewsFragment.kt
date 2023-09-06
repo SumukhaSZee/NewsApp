@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.Adapters.NewsAdapter
@@ -22,10 +22,12 @@ import com.example.newsapp.Util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.Util.Resource
 import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.databinding.SearchResultsBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener {
 
@@ -66,33 +68,42 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
 
             }
         }
-        viewModel.searchNews.observe(viewLifecycleOwner,  Observer {response->
-            when(response){
-                is Resource.Success ->{
-                    hideProgressBar()
-                    response.data?.let{newsResponse ->
-                        val filteredArticles = newsResponse.articles.filterNotNull()
-                        newsAdapter.differ.submitList(filteredArticles)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.searchNews.collect { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        withContext(Dispatchers.Main){
+                            hideProgressBar()
+                            response.data?.let { newsResponse ->
+                                val filteredArticles = newsResponse.articles.filterNotNull()
+                                newsAdapter.differ.submitList(filteredArticles)
+                            }
+                        }
 
                     }
-                }
-                is Resource.Error ->{
-                    hideProgressBar()
-                    response.message?.let{message->
-                        Log.e(TAG,"An Error Occured:${message}")
+                    is Resource.Error -> {
+                        withContext(Dispatchers.Main){
+                            hideProgressBar()
+                            response.message?.let { message ->
+                                Log.d(TAG, "An Error Occured $message")
+                            }
+                        }
 
                     }
-                }
-                is Resource.Loading->{
-                    showProgressBar()
+                    is Resource.Loading -> {
+                        withContext(Dispatchers.Main){
+                            showProgressBar()
+                        }
+
+                    }
                 }
             }
-
-        })
+        }
 
     }
 
-    private fun  hideProgressBar(){
+    private fun hideProgressBar(){
         searchNewsBinding.paginationProgressBar.visibility = View.INVISIBLE
     }
     private fun  showProgressBar(){

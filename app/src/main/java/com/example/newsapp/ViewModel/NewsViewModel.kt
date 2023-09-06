@@ -1,12 +1,12 @@
 package com.example.newsapp.ViewModel
 
-
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.Models.NewsResponse
 import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.Util.Resource
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -14,26 +14,29 @@ class NewsViewModel(
     val newsrepository : NewsRepository
 ): ViewModel() {
 
-    val breakingNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+
+    private val breakingNews1 = MutableStateFlow<Resource<NewsResponse>>(Resource.Loading())
+    val breakingNews :StateFlow<Resource<NewsResponse>> = breakingNews1
     val breakingNewsPage = 1
 
 
-    val searchNews : MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    private val searchNews1 = MutableStateFlow<Resource<NewsResponse>>(Resource.Loading())
+    val searchNews : StateFlow<Resource<NewsResponse>> = searchNews1
     val searchNewsPage = 1
 
     init{
         getBreakingNews("us")
     }
     fun getBreakingNews(countryCode:String) = viewModelScope.launch {
-        breakingNews.postValue(Resource.Loading())
+        breakingNews1.value= Resource.Loading()
         val response = newsrepository.getBreakingNews(countryCode,breakingNewsPage)
-        breakingNews.postValue(handleBreakingNewsResponse(response))
+        breakingNews1.value = handleBreakingNewsResponse(response)
     }
 
     fun searchNews(searchQuery:String) = viewModelScope.launch{
-        searchNews.postValue(Resource.Loading())
+        searchNews1.value = Resource.Loading()
         val response = newsrepository.searchNews(searchQuery,searchNewsPage)
-        searchNews.postValue(handleSearchNewsResponse(response))
+        searchNews1.value = handleSearchNewsResponse(response)
 
     }
 
