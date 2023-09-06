@@ -67,9 +67,5 @@ class NewsAdapter(private val itemClickListener: OnItemClickListener) : Recycler
 
     }
 
-   /* private var onItemClickListener :  ((Article)->Unit)? = null
 
-    fun setOnItemClickListener(listener:(Article)->Unit){
-        onItemClickListener = listener
-    }*/
 }

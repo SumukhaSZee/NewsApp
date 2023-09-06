@@ -116,7 +116,7 @@ class BreakingNewsFragment :Fragment(R.layout.br_news),OnItemClickListener {
                 bundle
             )
         } else {
-            // Handle the case where 'article' is null (optional)
+            // Handle the case where 'article' is null
             // You can log an error message or take appropriate action here
             Log.d(TAG,"Error in receiving article")
             Toast.makeText(context, "Article is null", Toast.LENGTH_SHORT).show()

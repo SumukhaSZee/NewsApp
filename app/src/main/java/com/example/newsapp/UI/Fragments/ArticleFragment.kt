@@ -21,42 +21,7 @@ import com.example.newsapp.UI.NewsActivity
 import com.example.newsapp.ViewModel.NewsViewModel
 import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.databinding.ArticleBinding
-/*
-class ArticleFragment :Fragment(R.layout.article) {
 
-    lateinit var viewModel: NewsViewModel
-
-
-    lateinit var articlebinding: ArticleBinding
-    lateinit var newsAdapter : NewsAdapter
-    val args : ArticleFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-       articlebinding = ArticleBinding.inflate(inflater,container,false)   // for fragments
-        articlebinding.lifecycleOwner = viewLifecycleOwner
-        val view = articlebinding.root
-        return view
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val newsRepository= NewsRepository()
-        val viewModelProviderFactory= NewsViewModelProviderFactory(newsRepository)
-        viewModel= ViewModelProvider(this,viewModelProviderFactory)[NewsViewModel::class.java]
-
-
-        val article = args.article
-        articlebinding.webView.apply {
-            webViewClient = WebViewClient()
-            loadUrl(article.url)
-        }
-
-    }
-}
-*/
 
 class ArticleFragment : Fragment(R.layout.article) {
 
@@ -67,10 +32,7 @@ class ArticleFragment : Fragment(R.layout.article) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       /* articlebinding = ArticleBinding.inflate(inflater, container, false)
-        articlebinding.lifecycleOwner = viewLifecycleOwner
-        val view = articlebinding.root
-        return view*/
+
         val rootView = inflater.inflate(R.layout.article, container, false)
 
         // Retrieve the article URL from the arguments
@@ -88,7 +50,7 @@ class ArticleFragment : Fragment(R.layout.article) {
                     error: WebResourceError?
                 ) {
                     super.onReceivedError(view, request, error)
-                    // Handle error (e.g., display a toast)
+                    // Handle error display a toast
                     Toast.makeText(
                         context,
                         "Error loading the web page. Please try again later.",
@@ -111,13 +73,6 @@ class ArticleFragment : Fragment(R.layout.article) {
     }
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val newsRepository = NewsRepository()
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
 
-
-    }*/
 
 
