@@ -56,9 +56,8 @@ class SavedNewsFragment :Fragment(R.layout.saved_news),OnItemClickListener{
     override fun onItemClick(article: Article) {
         // Ensure that the 'article' object is not null before using it
         if (article != null) {
-            val bundle = Bundle().apply {
-                putSerializable("article", article)
-            }
+            val bundle = Bundle()
+            bundle.putString("url",article.url)
             findNavController().navigate(
                 R.id.action_savedNewsFragment2_to_articleFragment2,
                 bundle

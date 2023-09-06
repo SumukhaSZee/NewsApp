@@ -52,17 +52,6 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
         val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
         setupRecyclerView()
-        /*newsAdapter.setOnItemClickListener { it ->
-            it?.let { article ->
-                val bundle = Bundle().apply {
-                    putSerializable("article", article)
-                }
-                findNavController().navigate(
-                    R.id.action_searchNewsFragment2_to_articleFragment2,
-                    bundle
-                )
-            }
-        }*/
 
         var job : Job? = null
         searchNewsBinding.etSearch.addTextChangedListener {editable->
@@ -77,8 +66,6 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
 
             }
         }
-
-
         viewModel.searchNews.observe(viewLifecycleOwner,  Observer {response->
             when(response){
                 is Resource.Success ->{
@@ -123,16 +110,13 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
     override fun onItemClick(article: Article) {
         // Ensure that the 'article' object is not null before using it
         if (article != null) {
-            val bundle = Bundle().apply {
-                putSerializable("article", article)
-            }
+            val bundle = Bundle()
+            bundle.putString("url",article.url)
             findNavController().navigate(
                 R.id.action_searchNewsFragment2_to_articleFragment2,
                 bundle
             )
         } else {
-            // Handle the case where 'article' is null (optional)
-            // You can log an error message or take appropriate action here
             Log.d(TAG,"Error in receiving article")
             Toast.makeText(context, "Article is null", Toast.LENGTH_SHORT).show()
         }

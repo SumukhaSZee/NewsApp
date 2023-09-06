@@ -8,6 +8,7 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -61,36 +62,33 @@ class ArticleFragment : Fragment(R.layout.article) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var articlebinding: ArticleBinding
-    lateinit var newsAdapter: NewsAdapter
-    val args: ArticleFragmentArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        articlebinding = ArticleBinding.inflate(inflater, container, false)
+       /* articlebinding = ArticleBinding.inflate(inflater, container, false)
         articlebinding.lifecycleOwner = viewLifecycleOwner
         val view = articlebinding.root
-        return view
-    }
+        return view*/
+        val rootView = inflater.inflate(R.layout.article, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val newsRepository = NewsRepository()
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
+        // Retrieve the article URL from the arguments
+        val articleUrl = arguments?.getString("url")
 
-        val article = args.article
-        articlebinding.webView.apply {
-            webViewClient = object : WebViewClient() {
+        // Check if the article URL is not null or empty
+        if (!articleUrl.isNullOrEmpty()) {
+            val webView: WebView = rootView.findViewById(R.id.webView)
+
+            // Set up WebViewClient to handle page loading and errors
+            webView.webViewClient = object : WebViewClient() {
                 override fun onReceivedError(
                     view: WebView?,
                     request: WebResourceRequest?,
                     error: WebResourceError?
                 ) {
                     super.onReceivedError(view, request, error)
-                    // Handle error (e.g., display an error message)
+                    // Handle error (e.g., display a toast)
                     Toast.makeText(
                         context,
                         "Error loading the web page. Please try again later.",
@@ -101,11 +99,25 @@ class ArticleFragment : Fragment(R.layout.article) {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     // Hide the progress indicator when the page is fully loaded
-                    articlebinding.progressBar.visibility = View.GONE
+                    rootView.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
                 }
             }
-            loadUrl(article.url)
+
+            // Load the article URL into the WebView
+            webView.loadUrl(articleUrl)
         }
+
+        return rootView
     }
-}
+    }
+
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val newsRepository = NewsRepository()
+        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
+
+
+    }*/
+
 

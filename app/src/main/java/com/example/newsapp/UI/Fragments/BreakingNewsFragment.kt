@@ -53,23 +53,6 @@ class BreakingNewsFragment :Fragment(R.layout.br_news),OnItemClickListener {
 
         setupRecyclerView()
 
-       /* newsAdapter.setOnItemClickListener { it ->
-            it?.let { article ->
-                val bundle = Bundle().apply {
-                    putSerializable("article", article)
-                }
-                findNavController().navigate(
-                    R.id.action_breakingNewsFragment2_to_articleFragment2,
-                    bundle
-                )
-            }
-        }*/
-
-
-
-
-
-
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {response->
             when(response){
                 is Resource.Success->{
@@ -114,9 +97,8 @@ class BreakingNewsFragment :Fragment(R.layout.br_news),OnItemClickListener {
     override fun onItemClick(article: Article) {
         // Ensure that the 'article' object is not null before using it
         if (article != null) {
-            val bundle = Bundle().apply {
-                putSerializable("article", article)
-            }
+            val bundle = Bundle()
+            bundle.putString("url",article.url)
             findNavController().navigate(
                 R.id.action_breakingNewsFragment2_to_articleFragment2,
                 bundle

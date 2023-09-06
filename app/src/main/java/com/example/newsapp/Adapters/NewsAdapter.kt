@@ -38,23 +38,19 @@ class NewsAdapter(private val itemClickListener: OnItemClickListener) : Recycler
         return differ.currentList.size
     }
 
+
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.apply {
-            if (article.urlToImage != null) {
-                Glide.with(itemView.context)
-                    .load(article.urlToImage)
-                    .into(img)
-            } else {
-                // Set a placeholder image or handle missing image case
-                img.setImageResource(com.google.android.material.R.drawable.mtrl_ic_error)
-            }
+            Glide.with(itemView.context)
+                .load(article.urlToImage)
+                .into(img)
 
             holder.apply {
-                tvSource.text= article.source?.name?:"Unknown Source"
-                tvTitle.text= article.title?:"Unknown Title"
-                tvDescription.text = article.description?:"Unknown article"
-                tvPublishedAt.text = article.publishedAt?:"Unknown Resource"
+                tvSource.text= article.source.name
+                tvTitle.text= article.title
+                tvDescription.text = article.description
+                tvPublishedAt.text = article.publishedAt
                 itemView.setOnClickListener{
                    itemClickListener.onItemClick(article)
                 }
@@ -71,9 +67,9 @@ class NewsAdapter(private val itemClickListener: OnItemClickListener) : Recycler
 
     }
 
-    private var onItemClickListener :  ((Article)->Unit)? = null
+   /* private var onItemClickListener :  ((Article)->Unit)? = null
 
     fun setOnItemClickListener(listener:(Article)->Unit){
         onItemClickListener = listener
-    }
+    }*/
 }
