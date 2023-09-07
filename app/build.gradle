@@ -76,12 +76,20 @@ dependencies{
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.okhttp3:logging-interceptor:4.5.0"
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
 
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.1"
     implementation "androidx.navigation:navigation-ui-ktx:2.7.1"
 
-
+    //Koin//
+    def koin_android_version = "3.4.3"
+    implementation "io.insert-koin:koin-android:$koin_android_version"
+    implementation "io.insert-koin:koin-android-compat:$koin_android_version"
+// Jetpack WorkManager
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_android_version"
+// Navigation Graph
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_android_version"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'

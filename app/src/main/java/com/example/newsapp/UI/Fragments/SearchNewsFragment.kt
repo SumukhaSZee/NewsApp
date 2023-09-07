@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,11 +15,9 @@ import com.example.newsapp.Adapters.NewsAdapter
 import com.example.newsapp.Adapters.OnItemClickListener
 import com.example.newsapp.Models.Article
 import com.example.newsapp.R
-import com.example.newsapp.Repository.NewsRepository
 import com.example.newsapp.ViewModel.NewsViewModel
 import com.example.newsapp.Util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.Util.Resource
-import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
 import com.example.newsapp.databinding.SearchResultsBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,10 +25,11 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener {
 
-    lateinit var viewModel: NewsViewModel
+    private val viewModel by viewModel<NewsViewModel>()
     lateinit var newsAdapter:NewsAdapter
     lateinit var searchNewsBinding: SearchResultsBinding
 
@@ -50,11 +48,9 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val newsRepository = NewsRepository()
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
-        setupRecyclerView()
 
+
+        setupRecyclerView()
         var job : Job? = null
         searchNewsBinding.etSearch.addTextChangedListener {editable->
             job?.cancel()

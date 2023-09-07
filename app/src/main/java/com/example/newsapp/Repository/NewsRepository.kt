@@ -1,11 +1,13 @@
 package com.example.newsapp.Repository
 
-import com.example.newsapp.Api.RetrofitInstance
-class NewsRepository() {
-    suspend fun getBreakingNews(countryCode:String,pageNumber:Int)=
-        RetrofitInstance.api.getBreakingNews(countryCode,pageNumber)
+import com.example.newsapp.Api.NewsApi
+class NewsRepository(
+    private val api:NewsApi
+):NewsRepositoryInterface {
+    override suspend fun getBreakingNews(countryCode:String, pageNumber:Int)=
+        api.getBreakingNews(countryCode,pageNumber)
 
-    suspend fun searchNews (searchQuery:String,pageNumber: Int) =
-        RetrofitInstance.api.searchForNews(searchQuery,pageNumber)
+    override suspend fun searchNews (searchQuery:String, pageNumber: Int) =
+        api.searchForNews(searchQuery,pageNumber)
 
 }

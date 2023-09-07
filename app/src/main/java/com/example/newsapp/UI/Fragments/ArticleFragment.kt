@@ -11,22 +11,11 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
-import com.example.newsapp.Adapters.NewsAdapter
 import com.example.newsapp.R
-import com.example.newsapp.Repository.NewsRepository
-import com.example.newsapp.UI.NewsActivity
-import com.example.newsapp.ViewModel.NewsViewModel
-import com.example.newsapp.ViewModel.NewsViewModelProviderFactory
-import com.example.newsapp.databinding.ArticleBinding
-
 
 class ArticleFragment : Fragment(R.layout.article) {
 
-    lateinit var viewModel: NewsViewModel
-    lateinit var articlebinding: ArticleBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.Models.NewsResponse
 import com.example.newsapp.Repository.NewsRepository
+import com.example.newsapp.Repository.NewsRepositoryInterface
 import com.example.newsapp.Util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class NewsViewModel(
-    val newsrepository : NewsRepository
+    val newsrepository : NewsRepositoryInterface
 ): ViewModel() {
 
 
