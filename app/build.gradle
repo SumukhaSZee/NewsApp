@@ -125,6 +125,9 @@ dependencies{
 
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
 
+    //Glide with Compose//
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+
 
 
 
