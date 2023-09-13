@@ -17,6 +17,7 @@ import com.example.newsapp.composables.BreakingNews
 import com.example.newsapp.composables.SearchNews
 
 
+
 class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

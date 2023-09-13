@@ -30,7 +30,6 @@ import com.example.newsapp.viewmodel.NewsViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
     fun SearchNews(onClick : (url:String)->Unit) {
@@ -53,8 +52,8 @@ import org.koin.androidx.compose.getViewModel
                     .padding(8.dp)
                     .background(Color.White)
                     .padding(8.dp)
-                    .height(48.dp) // Adjust the height as needed
-                    .align(Alignment.Start), // Align to the top
+                    .height(48.dp)
+                    .align(Alignment.Start),
 
                 placeholder = {
                     Text(
@@ -62,8 +61,8 @@ import org.koin.androidx.compose.getViewModel
                         color = Color.Black,
                     )
                 },
-                singleLine = true, // Allow only a single line of text
-                shape = RoundedCornerShape(16.dp) // Apply rounded corners
+                singleLine = true,
+                shape = RoundedCornerShape(16.dp)
             )
 
 

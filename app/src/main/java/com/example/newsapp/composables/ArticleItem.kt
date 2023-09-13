@@ -96,7 +96,5 @@ fun ArticleItem(article: Article, onClick: (url:String) -> Unit) {
         }
     }
 }
-/*private fun navigateToArticle(navController: NavController, articleUrl: String) {
-    navController.navigate("ArticlePage/${articleUrl}")
-}*/
+
 
