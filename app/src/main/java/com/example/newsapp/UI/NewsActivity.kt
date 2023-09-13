@@ -3,23 +3,22 @@ package com.example.newsapp.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.example.newsapp.R
+import androidx.navigation.navArgument
+import com.example.newsapp.ViewModel.NewsViewModel
 import com.example.newsapp.composables.ArticlePage
 import com.example.newsapp.composables.BreakingNews
 import com.example.newsapp.composables.SearchNews
 
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.androidx.compose.getViewModel
+
 
 
 class NewsActivity : AppCompatActivity() {
@@ -36,15 +35,28 @@ class NewsActivity : AppCompatActivity() {
 @Composable
 fun NewsApp(){
         val navController = rememberNavController()
+        val viewModel = getViewModel<NewsViewModel>()
         NavHost(navController, startDestination ="breakingNews"){
             composable("breakingNews"){
-                BreakingNews()
+                BreakingNews {
+                    navController.navigate("ArticlePage/$it" )
+                }
             }
             composable("SearchNews"){
-                SearchNews()
+                SearchNews{
+                    navController.navigate("ArticlePage/$it" )
+                }
             }
-            composable("ArticlePage"){
-                ArticlePage()
+
+            composable(
+                route = "ArticlePage/{articleUrl}",
+                arguments = listOf(navArgument("articleUrl") {
+                    type = NavType.StringType}
+                )) {
+                val articleUrl = it.arguments?.getString("articleUrl")
+                Log.d("hello",articleUrl.toString())
+                    ArticlePage(articleUrl)
+
             }
         }
 

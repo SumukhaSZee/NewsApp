@@ -1,5 +1,6 @@
 package com.example.newsapp.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,12 +28,15 @@ import com.example.newsapp.R
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ArticleItem(article: Article) {
+fun ArticleItem(article: Article, onClick: (url:String) -> Unit) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            ,
+            .clickable {
+                     onClick(article.url)
+            },
         elevation = CardDefaults.cardElevation()
     ) {
         Column(
@@ -90,4 +94,7 @@ fun ArticleItem(article: Article) {
         }
     }
 }
+/*private fun navigateToArticle(navController: NavController, articleUrl: String) {
+    navController.navigate("ArticlePage/${articleUrl}")
+}*/
 

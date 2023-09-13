@@ -1,5 +1,6 @@
-package com.example.newsapp.UI.Fragments
 
+package com.example.newsapp.UI.Fragments
+/*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -123,3 +124,4 @@ class BreakingNewsFragment :Fragment(R.layout.br_news),OnItemClickListener {
 
 
 
+*/

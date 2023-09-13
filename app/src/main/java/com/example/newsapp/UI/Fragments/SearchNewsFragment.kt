@@ -1,4 +1,5 @@
 package com.example.newsapp.UI.Fragments
+/*
 
 import android.os.Bundle
 import android.util.Log
@@ -128,4 +129,4 @@ class SearchNewsFragment :Fragment(R.layout.search_results),OnItemClickListener 
             Toast.makeText(context, "Article is null", Toast.LENGTH_SHORT).show()
         }
     }
-}
+*/

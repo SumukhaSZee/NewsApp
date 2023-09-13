@@ -16,13 +16,12 @@ import org.koin.androidx.compose.getViewModel
 
 
 @Composable
-fun BreakingNews(){
+fun BreakingNews(onClick : (url:String)->Unit) {
     val viewModel = getViewModel<NewsViewModel>()
     val resource = viewModel.breakingNews.collectAsState().value
-
     when (resource) {
         is Resource.Loading -> {
-            // Display a loading indicator or a placeholder
+
             CircularProgressIndicator()
         }
         is Resource.Success -> {
@@ -30,15 +29,15 @@ fun BreakingNews(){
             LazyColumn {
                 if(articles!=null){
                     items(articles) { article ->
-                        // Display individual articles as before
-                        ArticleItem(article)
+
+                        ArticleItem(article,onClick)
                     }
                 }
 
             }
         }
         is Resource.Error -> {
-            // Display an error message or handle the error as needed
+
             Text(text = "Error: ${resource.message}")
         }
     }

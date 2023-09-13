@@ -1,4 +1,5 @@
 package com.example.newsapp.UI.Fragments
+/*
 
 import android.os.Bundle
 import android.util.Log
@@ -61,4 +62,4 @@ class SavedNewsFragment :Fragment(R.layout.saved_news),OnItemClickListener{
             Toast.makeText(context, "Article is null", Toast.LENGTH_SHORT).show()
         }
     }
-}
+}*/
