@@ -1,5 +1,6 @@
 package com.example.newsapp.composables
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.newsapp.Models.Article
+import com.example.newsapp.models.Article
 import com.example.newsapp.R
 
 
@@ -35,6 +36,7 @@ fun ArticleItem(article: Article, onClick: (url:String) -> Unit) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
+                Log.d("OnItemView",article.url)
                      onClick(article.url)
             },
         elevation = CardDefaults.cardElevation()

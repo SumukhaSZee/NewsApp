@@ -1,11 +1,10 @@
-package com.example.newsapp.ViewModel
+package com.example.newsapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapp.Models.NewsResponse
-import com.example.newsapp.Repository.NewsRepository
-import com.example.newsapp.Repository.NewsRepositoryInterface
-import com.example.newsapp.Util.Resource
+import com.example.newsapp.models.NewsResponse
+import com.example.newsapp.repository.NewsRepositoryInterface
+import com.example.newsapp.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

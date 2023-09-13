@@ -1,6 +1,6 @@
-package com.example.newsapp.Repository
+package com.example.newsapp.repository
 
-import com.example.newsapp.Models.NewsResponse
+import com.example.newsapp.models.NewsResponse
 import retrofit2.Response
 
 interface NewsRepositoryInterface {

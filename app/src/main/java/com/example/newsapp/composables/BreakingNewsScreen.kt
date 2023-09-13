@@ -8,8 +8,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.example.newsapp.Util.Resource
-import com.example.newsapp.ViewModel.NewsViewModel
+import com.example.newsapp.util.Resource
+import com.example.newsapp.viewmodel.NewsViewModel
 import org.koin.androidx.compose.getViewModel
 
 
@@ -29,7 +29,6 @@ fun BreakingNews(onClick : (url:String)->Unit) {
             LazyColumn {
                 if(articles!=null){
                     items(articles) { article ->
-
                         ArticleItem(article,onClick)
                     }
                 }

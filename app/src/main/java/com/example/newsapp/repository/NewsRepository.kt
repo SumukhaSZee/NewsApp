@@ -1,6 +1,6 @@
-package com.example.newsapp.Repository
+package com.example.newsapp.repository
 
-import com.example.newsapp.Api.NewsApi
+import com.example.newsapp.api.NewsApi
 class NewsRepository(
     private val api:NewsApi
 ):NewsRepositoryInterface {

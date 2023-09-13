@@ -1,4 +1,4 @@
-package com.example.newsapp.Util
+package com.example.newsapp.util
 
 object Constants {
 

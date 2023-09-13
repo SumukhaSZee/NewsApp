@@ -1,4 +1,4 @@
-package com.example.newsapp.Models
+package com.example.newsapp.models
 
 data class Article(
     var id:Int? = null,

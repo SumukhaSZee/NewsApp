@@ -1,7 +1,7 @@
-package com.example.newsapp.Api
+package com.example.newsapp.api
 
-import com.example.newsapp.Models.NewsResponse
-import com.example.newsapp.Util.Constants.API_KEY
+import com.example.newsapp.models.NewsResponse
+import com.example.newsapp.util.Constants.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
