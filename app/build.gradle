@@ -16,6 +16,13 @@ android{
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty("KEY")}\""
+        buildConfigField "String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\""
+        buildConfigField "String", "SEARCH_NEWS_TIME_DELAY", "\"${properties.getProperty("SEARCH_NEWS_TIME_DELAY")}\""
     }
 
     buildTypes{
@@ -34,6 +41,7 @@ android{
 
 
     buildFeatures{
+        buildConfig true
         dataBinding true
         compose true
     }

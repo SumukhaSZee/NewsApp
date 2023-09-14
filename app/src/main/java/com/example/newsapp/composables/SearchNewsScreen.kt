@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.newsapp.util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.util.Resource
 import com.example.newsapp.viewmodel.NewsViewModel
 import kotlinx.coroutines.delay
@@ -93,7 +92,7 @@ import org.koin.androidx.compose.getViewModel
             }
         }
     LaunchedEffect(searchText.value) {
-        delay(SEARCH_NEWS_TIME_DELAY)
+        delay(500L)
         if (searchText!=null) {
             viewModel.searchNews(searchText.value)
         }

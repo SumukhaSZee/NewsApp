@@ -1,6 +1,7 @@
 
 package com.example.newsapp.ui
 
+
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,7 @@ class NewsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         setContent {
             NewsApp()

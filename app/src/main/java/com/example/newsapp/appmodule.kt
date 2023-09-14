@@ -1,9 +1,9 @@
 package com.example.newsapp
 
+import com.example.newsapp.BuildConfig.BASE_URL
 import com.example.newsapp.api.NewsApi
 import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.repository.NewsRepositoryInterface
-import com.example.newsapp.util.Constants.BASE_URL
 import com.example.newsapp.viewmodel.NewsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

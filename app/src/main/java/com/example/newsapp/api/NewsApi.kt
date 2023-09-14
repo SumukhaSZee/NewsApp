@@ -1,10 +1,12 @@
 package com.example.newsapp.api
 
+
+import com.example.newsapp.BuildConfig.API_KEY
 import com.example.newsapp.models.NewsResponse
-import com.example.newsapp.util.Constants.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+
 
 
 interface NewsApi {
